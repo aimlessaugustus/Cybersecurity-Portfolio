@@ -46,6 +46,33 @@ The following information was provided for level 3:
 
 > Navigate to social.thm:5003 and derive Marco's password from personal info.
 
-As no difference was specified in the username structure, it was assumed to be `marco` again. The website specified that the jobs portal would hold Marco's password.
+As no difference was specified in the username structure, it was assumed to be `marco` again. The website specified that the jobs portal would hold Marco's password, so his information was saved as a local html file called  Marco's raw employee information was stored in `profile-words.txt`.
 
 ![alt text](<Task 3 Marco's Profile Information.png>)
+
+```bash
+cewl file:///root/profile.html -w /root/profile-words.txt
+```
+
+This didn't resolve, so instead the following was used to scrape potential password:
+
+```bash
+python3 -c 'from html.parser import HTMLParser; from pathlib import Path; import re; p=HTMLParser(); s=Path("/root/Downloads/profile.html").read_text(); print("\n".join(dict.fromkeys(re.findall(r"[A-Za-z0-9]+", p.unescape(re.sub(r"<[^>]*>", " ", s))))))' > /root/profile-words.txt
+```
+
+This was then cleaned to produce the following list
+
+```
+Marco
+Bianchi
+marky
+14021995
+```
+
+This was then used to create a candidate list using:
+
+```bash
+python3 -c 'from itertools import permutations; from pathlib import Path; w=Path("profile-words.txt").read_text().splitlines(); print("\n".join(dict.fromkeys(a+b for a,b in permutations(w,2))))' > candidates.txt
+```
+
+This list did not work either.

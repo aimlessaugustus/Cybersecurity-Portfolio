@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee Profile - Engineering Careers</title>
+  <link href="Employee%20Profile%20-%20Engineering%20Careers_files/bootstrap.min_LMWD.css" rel="stylesheet">
+  
+<style>
+.hero {
+  background: linear-gradient(135deg, rgba(13,110,253,.10), rgba(25,135,84,.08));
+  border: 1px solid rgba(0,0,0,.06);
+}
+.card-hover:hover { transform: translateY(-2px); transition: .2s ease; }
+.badge-soft { background: rgba(13,110,253,.10); color: #0d6efd; }
+.small-muted { color: #6c757d; }
+</style>
+
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="http://10.128.171.154:5002/">Engineering Careers</a>
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge text-bg-success">Employee</span>
+      <a class="btn btn-outline-secondary btn-sm" href="#" onclick="inert(event)">Settings</a>
+      <a class="btn btn-outline-danger btn-sm" href="http://10.128.171.154:5002/logout">Sign out</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-4">
+  <div class="row g-3">
+    <div class="col-lg-4">
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center" style="width:56px;height:56px;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="fw-semibold">Marco Bianchi</div>
+              <div class="text-secondary small">IT Operations </div>
+            </div>
+          </div>
+          <hr>
+          <div class="small text-secondary">Status</div>
+          <div class="fw-semibold">Active employee</div>
+          <div class="small text-secondary mt-2">Last updated: today</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0 rounded-4 mb-3">
+        <div class="card-body p-4">
+          <div class="fw-semibold mb-2">Employee Details</div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="small text-secondary">First Name</div>
+              <div class="fw-semibold">Marco</div>
+            </div>
+            <div class="col-md-6">
+              <div class="small text-secondary">Surname</div>
+              <div class="fw-semibold">Bianchi</div>
+            </div>
+            <div class="col-md-6">
+              <div class="small text-secondary">Nickname</div>
+              <div class="fw-semibold">marky</div>
+            </div>
+            <div class="col-md-6">
+              <div class="small text-secondary">Birthdate (DDMMYYYY)</div>
+              <div class="fw-semibold">14021995</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+          <div class="fw-semibold mb-2">Actions</div>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline-secondary" onclick="inert(event)">Edit Profile</button>
+            <button class="btn btn-outline-secondary" onclick="inert(event)">View Payslips</button>
+            <button class="btn btn-outline-secondary" onclick="inert(event)">Request Time Off</button>
+          </div>
+          <div class="small text-secondary mt-3">          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="Employee%20Profile%20-%20Engineering%20Careers_files/bootstrap.bundle.min_LMWD.js"></script>
+<script>
+function inert(e){
+  if (e) e.preventDefault();
+  const t = bootstrap.Toast.getOrCreateInstance(document.getElementById('toast'));
+  t.show();
+}
+</script>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+  <div id="toast" class="toast">
+    <div class="toast-header">
+      <strong class="me-auto">Engineering Careers</strong>
+      <small class="text-secondary">demo</small>
+      <button class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">Disabled in the lab demo.</div>
+  </div>
+</div>
+
+
+</body></html>
